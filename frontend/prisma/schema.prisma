@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model crew {
+  id         String   @id @default(uuid())
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  department String
+  emp_type   String
+  job_type   String
+
+  meeting        meeting[]
+  word_frequency word_frequency[]
+  background_job background_job[]
+}
+
+model meeting {
+  id           String   @id @default(uuid())
+  title        String
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  organizer_id String
+
+  note note[]
+  crew crew   @relation(fields: [organizer_id], references: [id])
+}
+
+model note {
+  id            String   @id @default(uuid())
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  transcription String?
+  recording     String?
+  status        Int
+  meeting_id    String
+
+  meeting meeting @relation(fields: [meeting_id], references: [id])
+}
+
+model word_frequency {
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  word       String
+  frequency  Int
+  crew_id    String
+
+  crew crew @relation(fields: [crew_id], references: [id])
+}
+
+model background_job {
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  status     Int
+  type       String
+  crew_id    String
+
+  crew crew @relation(fields: [crew_id], references: [id])
+}

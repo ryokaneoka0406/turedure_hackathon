@@ -1,0 +1,35 @@
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: rgb(248, 247, 246);
+    color: rgb(35, 34, 30);
+  }
+  
+  @font-face {
+    font-family: AdjustedYuGothic;
+    font-weight: 400;
+    src: local("Yu Gothic Medium");
+  }
+  
+  @font-face {
+    font-family: AdjustedYuGothic;
+    font-weight: 700;
+    src: local("Yu Gothic Bold");
+  }
+  
+  html {
+    font-family: AdjustedYuGothic, Yu Gothic, YuGothic, sans-serif;
+  }
+  
+  .linkText {
+    color: rgb(0, 113, 193);
+  }
+  
+  .primary {
+    color: rgb(0, 119, 199);
+  }
+  
+  .info {
+    color: rgb(112, 109, 101);
+  }
